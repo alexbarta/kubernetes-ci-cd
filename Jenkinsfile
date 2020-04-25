@@ -1,7 +1,8 @@
 node {
-
+    def app
+  
     checkout scm
-
+  
     env.DOCKER_API_VERSION="1.23"
     
     sh "git rev-parse --short HEAD > commit-id"
@@ -15,11 +16,15 @@ node {
 
     stage "Build"
     
-        sh "docker build -t ${imageName} -f applications/hello-kenzan/Dockerfile applications/hello-kenzan"
-    
+        //sh "docker build -t ${imageName} -f applications/hello-kenzan/Dockerfile applications/hello-kenzan"
+        app = docker.build(${registryHost}${appName}, "applications/hello-kenzan/Dockerfile")
+
     stage "Push"
 
-        sh "docker push ${imageName}"
+        //sh "docker push ${imageName}"
+        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+        app.push("${env.BUILD_NUMBER}")
+        app.push("latest")
 
     stage "Deploy"
 

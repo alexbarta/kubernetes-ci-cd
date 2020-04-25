@@ -17,7 +17,7 @@ node {
     stage "Build"
     
         //sh "docker build -t ${imageName} -f applications/hello-kenzan/Dockerfile applications/hello-kenzan"
-        app = docker.build(${registryHost}${appName}, "applications/hello-kenzan/Dockerfile")
+        app = docker.build("${registryHost}${appName}", "applications/hello-kenzan/Dockerfile")
 
     stage "Push"
 

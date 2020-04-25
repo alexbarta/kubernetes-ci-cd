@@ -18,7 +18,7 @@ node {
     stage "Build"
     
         //sh "docker build -t ${imageName} -f applications/hello-kenzan/Dockerfile applications/hello-kenzan"
-        app = docker.build("docker.io/barta/hello-kenzan", "applications/hello-kenzan")
+        app = docker.build("barta/hello-kenzan", "applications/hello-kenzan")
 
     stage "Push"
 

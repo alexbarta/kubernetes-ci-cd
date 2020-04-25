@@ -11,13 +11,14 @@ node {
     appName = "hello-kenzan"
     registryHost = "docker.io/barta/"
     registryCredential = "dockerhub"
-    imageName = "${registryHost}${appName}:${tag}"
+    //imageName = "${registryHost}${appName}:${tag}"
+    imageName = "${registryHost}${appName}"
     env.BUILDIMG=imageName
 
     stage "Build"
     
         //sh "docker build -t ${imageName} -f applications/hello-kenzan/Dockerfile applications/hello-kenzan"
-        app = docker.build("${registryHost}${appName}", "applications/hello-kenzan/Dockerfile")
+        app = docker.build(${imageName}, "applications/hello-kenzan/Dockerfile")
 
     stage "Push"
 
